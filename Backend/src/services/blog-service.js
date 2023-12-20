@@ -1,5 +1,5 @@
 
-import BlogRepository from "../repository/blog-repository";
+import BlogRepository from "../repository/blog-repository.js";
 
 class BlogService {
   constructor() {
@@ -8,13 +8,13 @@ class BlogService {
   async createBlogs(data) {
     try {
       const blog = await this.blogRepository.create(data);
-      return flight;
+      return blog;
     } catch (error) {
       console.log("Something went wrong at service layer");
       throw { error };
     }
   }
-  async getBlogs() {
+  async getAllBlogs() {
     try {
       const blogs = await this.blogRepository.getAll();
       return blogs;
@@ -23,7 +23,7 @@ class BlogService {
       throw { error };
     }
   }
-  async get(blogId) {
+  async getBlog(blogId) {
     try {
       const blog = await this.blogRepository.get(blogId);
       return blog;
