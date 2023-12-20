@@ -1,6 +1,5 @@
 import dotenv from 'dotenv'; 
 dotenv.config();
 
-const PORT = process.env.PORT;
-
-export { PORT };
+export const PORT = process.env.PORT;
+export const BCRYPT_SALT_ROUNDS = process.env.BCRYPT_SALT_ROUNDS;

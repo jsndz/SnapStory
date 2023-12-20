@@ -20,6 +20,7 @@ class UserService {
             const user = await this.userRepository.findBy({email});
             return user;
         } catch (error) {
+            console.log("error in get user by email service");
             throw error;
         }
     }
@@ -27,8 +28,23 @@ class UserService {
     async signin(data){
         try {
             const user = await this.getUserByEmail(data.email);
+            if(!user){
+                throw {
+                    
+                    message:'coulnt find user',
+                    
+                }
+            } 
+            if(!user.comparePasswords(data.password)){
+                throw {
+                    
+                    message:'wrong password',
+                    
+                }
+            }
             return user;
         } catch (error) {
+            console.log("error in signin service");
             throw error;
         }
     }
