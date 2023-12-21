@@ -42,9 +42,20 @@ class UserService {
                     
                 }
             }
-            return user;
+            const token = user.genJwt();
+            return  token;
         } catch (error) {
             console.log("error in signin service");
+            throw error;
+        }
+        
+    }
+    async getUserById(id){
+        try {
+            const user = await this.userRepository.get(id);
+            return user;
+        } catch (error) {
+            console.log("error in get user by email service");
             throw error;
         }
     }

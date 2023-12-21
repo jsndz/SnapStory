@@ -2,6 +2,7 @@
     Tech Used:
      1.express
      2.mongodb- Database
+     3.Bcrypt- password encryption
 
 
      

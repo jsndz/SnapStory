@@ -45,3 +45,22 @@ export const login  = async (req,res) =>{
             err:{error}});
     }
 }
+
+export const getUser = async (req,res) =>{
+    try {
+        const token = await userService.getUserById(req.body.userId);
+        return res.status(201).json({
+            data: token,
+            message:'Successsfully got the user ',
+            sucess:true,
+            err:{}
+        })
+        
+    } catch (error) {
+        res.status(500).json({
+            data : {},
+            message:'coulnt get the user ',
+            sucess: true,
+            err:{error}});
+    }
+}
