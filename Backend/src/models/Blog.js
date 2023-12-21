@@ -41,6 +41,20 @@ const blogSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+blogSchema.static.paginateBlogs = async function (page,pageSize){
+  console.log("in blog model")
+  const skip = (page - 1) * pageSize;
+
+  const blogs = await this.find()
+  .sort({datePublished:-1})
+  .skip(skip)
+  .limit(pageSize)
+  .populate('user')
+  .populate('tag')
+
+  return blogs;
+}
+
 const Blog = mongoose.model("Blog", blogSchema);
 
 export default Blog;

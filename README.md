@@ -6,31 +6,31 @@
 
 
      
-1. **Setup Project Structure:**
+1. **Setup Project Structure:**^
    - Create project folders for models, controllers, services, repositories, middleware, and routes.
 
-2. **Define MongoDB Models:**
+2. **Define MongoDB Models:**^
    - Create models for Comment, User, Blog, and Tag.
    - Define relationships between models if necessary (e.g., a User can have multiple Blogs).
 
-3. **Implement Repository:**
+3. **Implement Repository:**^
    - Create MongoDB repositories for CRUD operations for each model.
 
-4. **Create Services:**
+4. **Create Services:**^
    - Implement services to handle business logic.
    - Examples include creating a new blog, adding comments, retrieving blog posts, etc.
 
-5. **Setup Express.js Server:**
+5. **Setup Express.js Server:**^
    - Initialize an Express.js server.
    - Set up basic middleware for handling requests and responses.
 
-6. **Implement Basic Routes:**
+6. **Implement Basic Routes:**^
    - Create routes for basic CRUD operations for blogs, comments, users, and tags.
 
-7. **Add Authentication Middleware:**
+7. **Add Authentication Middleware:**^
    - Implement middleware for user authentication using JWT (JSON Web Tokens).
 
-8. **User Registration and Login:**
+8. **User Registration and Login:**^
    - Create routes and controllers for user registration and login.
 
 9. **Authorization Middleware:**

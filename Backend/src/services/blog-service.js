@@ -1,6 +1,6 @@
 
 import BlogRepository from "../repository/blog-repository.js";
-
+import Blog from "../models/Blog.js";
 class BlogService {
   constructor() {
     this.blogRepository = new BlogRepository();
@@ -46,6 +46,15 @@ class BlogService {
     try {
       const blog = await this.blogRepository.destroy(blogId);
       return blog;
+    } catch (error) {
+      console.log("Something went wrong at service layer");
+      throw { error };
+    }
+  }
+  static async getPaginatedBlogs(page , pageSize ) {
+    try {
+      const blogs = await Blog.paginateBlogs(page, pageSize);
+      return blogs;
     } catch (error) {
       console.log("Something went wrong at service layer");
       throw { error };

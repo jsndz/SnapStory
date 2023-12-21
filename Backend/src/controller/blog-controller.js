@@ -22,7 +22,6 @@ export const CreateBlog = async (req, res) => {
   }
 };
 
-
 export const getAllBlog = async (req, res) => {
   try {
     const response = await blogService.getAllBlogs();
@@ -43,7 +42,6 @@ export const getAllBlog = async (req, res) => {
   }
 };
 
-
 export const getBlogById = async (req, res) => {
   try {
     const response = await blogService.getBlog(req.params.id);
@@ -59,6 +57,30 @@ export const getBlogById = async (req, res) => {
       data: {},
       message: "coulnt be Bloged",
       sucess: true,
+      err: { error },
+    });
+  }
+};
+
+export const paginatingBlogs = async (req, res) => {
+  try {
+    console.log(req.body);
+    const page = parseInt(req.body.page) || 1;
+    const pageSize = parseInt(req.body.pageSize) || 10;
+
+    const response = await blogService.getPaginatedBlogs(page, pageSize);
+
+    return res.status(201).json({
+      data: response,
+      message: "Successfully fetched a Blog from service",
+      sucess: true,
+      err: {},
+    });
+  } catch (error) {
+    res.status(500).json({
+      data: {},
+      message: "coulnt get the Blogs",
+      sucess: false,
       err: { error },
     });
   }
