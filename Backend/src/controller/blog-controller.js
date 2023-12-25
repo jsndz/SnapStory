@@ -1,8 +1,9 @@
 import BlogService from "../services/blog-service.js";
-
+import { validationResult } from "express-validator";
 const blogService = new BlogService();
 
 export const CreateBlog = async (req, res) => {
+  
   try {
     console.log(req.body);
     const response = await blogService.createBlogs(req.body);
@@ -105,3 +106,4 @@ export const searchBlogs = async (req, res) => {
     });
   }
 };
+
