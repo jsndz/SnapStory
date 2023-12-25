@@ -60,6 +60,15 @@ class BlogService {
       throw { error };
     }
   }
+  async getBlogsForSearch(keyword) {
+    try {
+      const blogs = await this.blogRepository.getForSearch(keyword);
+      return blogs;
+    } catch (error) {
+      console.log("Something went wrong at service layer");
+      throw { error };
+    }
+  }
 }
 
 export default BlogService;

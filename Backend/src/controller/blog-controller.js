@@ -85,3 +85,23 @@ export const paginatingBlogs = async (req, res) => {
     });
   }
 };
+
+
+export const searchBlogs = async (req, res) => {
+  try {
+    const blogs = await blogService.getBlogsForSearch(req.params.keyword);
+    return res.status(201).json({
+      data: blogs,
+      message: "Successfully fetched blogs for search from service",
+      sucess: true,
+      err: {},
+    });
+  } catch (error) {
+    res.status(500).json({
+      data: {},
+      message: "coulnt get the Blogs",
+      sucess: true,
+      err: { error },
+    });
+  }
+};
