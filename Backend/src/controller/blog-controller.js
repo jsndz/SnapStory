@@ -1,5 +1,6 @@
 import BlogService from "../services/blog-service.js";
 import { validationResult } from "express-validator";
+import {cacheAndRespondMiddleware} from "../middleware/redis-cache.js"
 const blogService = new BlogService();
 
 export const CreateBlog = async (req, res) => {
@@ -25,6 +26,7 @@ export const CreateBlog = async (req, res) => {
 
 export const getAllBlog = async (req, res) => {
   try {
+    // cacheAndRespondMiddleware(req, res, blogService.getAllBlogs);
     const response = await blogService.getAllBlogs();
     console.log(response);
     return res.status(201).json({

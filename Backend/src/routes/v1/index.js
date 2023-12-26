@@ -20,6 +20,9 @@ import {
   userLoginValidators,
   handleValidationErrors
 } from "../../middleware/validator.js";
+import { cacheMiddleware } from "../../middleware/redis-cache.js";
+
+
 const router = express.Router();
 
 router.post("/blog", blogPostCreationValidators, handleValidationErrors,CreateBlog);

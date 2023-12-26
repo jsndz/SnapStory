@@ -5,8 +5,8 @@ import { connect } from "./src/config/database.js";
 import { PORT } from "./src/config/serverConfig.js";
 import apiRoute from './src/routes/index.js';
 
-const app = express();
 
+const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
