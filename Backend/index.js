@@ -4,10 +4,11 @@ import cors from "cors"
 import { connect } from "./src/config/database.js";
 import { PORT } from "./src/config/serverConfig.js";
 import apiRoute from './src/routes/index.js';
-
+import morgan from 'morgan';
 
 const app = express();
 
+app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
