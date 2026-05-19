@@ -11,7 +11,7 @@ import {
   getAllCommentsOnBlog
 } from "../../controller/comment-controller.js";
 import { signup, login, getUser } from "../../controller/auth-controller.js";
-import { CreateTag } from "../../controller/tag-controller.js";
+import { CreateTag, getAllTags } from "../../controller/tag-controller.js";
 import {
   userRegistrationValidators,
   blogPostCreationValidators,
@@ -39,5 +39,6 @@ router.post("/login",userLoginValidators, handleValidationErrors, login);
 router.get("/user/:id", getUser);
 
 router.post("/tags", CreateTag);
+router.get("/tags", getAllTags);
 
 export default router;
