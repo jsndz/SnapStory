@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
 export const connect = async () =>{
-    await mongoose.connect('mongodb://localhost/SnapStory');
+    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/SnapStory';
+    await mongoose.connect(mongoURI);
 }

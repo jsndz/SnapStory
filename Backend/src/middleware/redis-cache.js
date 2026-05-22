@@ -1,6 +1,16 @@
 import redis from "redis";
 
-const redisClient = redis.createClient({ host: "localhost", port: 6379 });
+const redisURL = process.env.REDIS_URL || "redis://localhost:6379";
+const redisClient = redis.createClient({ url: redisURL });
+
+(async () => {
+  try {
+    await redisClient.connect();
+  } catch (err) {
+    console.error("Failed to connect to Redis:", err);
+  }
+})();
+
 redisClient.on("connect", () => {
   console.log("Connected to Redis");
 });
