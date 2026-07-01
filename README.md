@@ -1,105 +1,197 @@
-__**Backend**__
+# SnapStory 📸✍️
 
-# Implementation
+SnapStory is a modern, high-performance, full-stack blogging platform. It allows users to write articles, organize them with tags, upload cover images, search blogs, paginate through posts, and interact using threaded comments. Built on a robust architecture, SnapStory uses Redis for database caching and MongoDB for persistence, with JWT authentication securing resources.
 
-1. **Setup Project Structure:**^
+---
 
-   - Create project folders for models, controllers, services, repositories, middleware, and routes.
+## 🚀 Key Features
 
-2. **Define MongoDB Models:**^
+- **Robust User Authentication & Authorization**:
+  - Secure registration and login.
+  - Password hashing with Bcrypt.
+  - JSON Web Tokens (JWT) for secure, stateless API authorization.
+  - Role-based permissions (`admin` vs. `user`).
+- **Comprehensive Blog Management**:
+  - Create, read, update, and search blog posts.
+  - Image cover association.
+  - Real-time search by keywords.
+  - High-performance paginated post retrieval.
+- **Interactive Discussion System**:
+  - Threaded comment system linked to blog posts.
+- **Dynamic Tagging System**:
+  - Categorize stories with unique tags.
+  - Filter and retrieve blogs by association.
+- **Performance & Security Layers**:
+  - Redis-based caching middleware to accelerate frequent read requests.
+  - Express Validator schema validations to sanitize and reject bad request bodies.
+  - Logger integration using Morgan.
+- **Dockerized Services**:
+  - Multi-container architecture orchestrating Frontend, Backend, MongoDB, and Redis.
 
-   - Create models for Comment, User, Blog, and Tag.
-   - Define relationships between models if necessary (e.g., a User can have multiple Blogs).
+---
 
-3. **Implement Repository:**^
+## 🛠️ Tech Stack
 
-   - Create MongoDB repositories for CRUD operations for each model.
+### Frontend
+- **Core**: React 19, Vite, TypeScript.
+- **Styling**: TailwindCSS 4.
+- **Routing**: React Router DOM.
+- **HTTP client**: Axios.
+- **Icons**: Lucide React.
+- **Utility**: `jwt-decode` for decoding payload data.
 
-4. **Create Services:**^
+### Backend
+- **Core**: Node.js, Express (ES Modules).
+- **ORM / Database**: Mongoose (MongoDB).
+- **Caching**: Redis (Node Redis Client).
+- **Authentication**: JWT (`jsonwebtoken`), Bcrypt.
+- **Middleware**: Express Validator, Cors, Body-parser, Morgan, Dotenv.
+- **Process Manager**: Nodemon (Development).
 
-   - Implement services to handle business logic.
-   - Examples include creating a new blog, adding comments, retrieving blog posts, etc.
+---
 
-5. **Setup Express.js Server:**^
+## 📂 Project Structure
 
-   - Initialize an Express.js server.
-   - Set up basic middleware for handling requests and responses.
+```text
+SnapStory/
+├── Backend/
+│   ├── Dockerfile
+│   ├── index.js                     # Server Entry Point
+│   ├── src/
+│   │   ├── config/
+│   │   │   ├── database.js          # MongoDB Mongoose connection
+│   │   │   └── serverConfig.js      # Environment variable configurations
+│   │   ├── controller/              # Auth, Blog, Comment, and Tag controllers
+│   │   ├── middleware/              # Redis Cache & request validators
+│   │   ├── models/                  # mongoose database schemas (Blog, Comment, Like, Tag, User)
+│   │   ├── repository/              # Data access abstraction layer
+│   │   ├── routes/                  # Express routes (v1 API endpoints)
+│   │   └── services/                # Business logic services
+│   └── package.json
+├── Frontend/
+│   ├── Dockerfile
+│   ├── index.html
+│   ├── nginx.conf                   # Nginx config for frontend production builds
+│   ├── src/
+│   │   ├── App.tsx                  # Main router setup & layout
+│   │   ├── api/                     # Axios instance & request endpoints
+│   │   ├── components/              # Shared components (Header, BlogCard, etc.)
+│   │   ├── context/                 # AuthContext & global state providers
+│   │   ├── pages/                   # Views: Home, BlogDetail, CreateBlog, Login, Signup
+│   │   ├── types/                   # TypeScript interfaces/types
+│   │   └── index.css                # Global CSS imports
+│   ├── package.json
+│   └── vite.config.ts
+├── docker-compose.yml               # Service orchestrator (db, redis, backend, frontend)
+└── package.json
+```
 
-6. **Implement Basic Routes:**^
+---
 
-   - Create routes for basic CRUD operations for blogs, comments, users, and tags.
+## ⚙️ Configuration & Environment Variables
 
-7. **Add Authentication Middleware:**^
+Create a `.env` file in the `Backend/` directory with the following keys:
 
-   - Implement middleware for user authentication using JWT (JSON Web Tokens).
+```env
+PORT=3000
+MONGODB_URI=mongodb://localhost:27017/SnapStory
+REDIS_URL=redis://localhost:6379
+BCRYPT_SALT_ROUNDS=9
+```
 
-8. **User Registration and Login:**^
+---
 
-   - Create routes and controllers for user registration and login.
+## 🏃 Running the Application
 
-9. **Authorization Middleware:**
+### Method 1: Using Docker Compose (Recommended)
 
-   - Implement middleware to handle user roles and permissions.
-   - Ensure that only authorized users can perform certain actions.
+To spin up all services (MongoDB, Redis, Backend, Frontend) with a single command:
 
-10. **Pagination for Blog Posts:**
+1. Make sure you have Docker and Docker Compose installed.
+2. In the root directory of the project, run:
+   ```bash
+   docker-compose up --build
+   ```
+3. Once all containers start:
+   - **Frontend UI**: [http://localhost](http://localhost)
+   - **Backend API**: [http://localhost:3000](http://localhost:3000)
 
-    - Implement pagination for retrieving a list of blog posts.
+### Method 2: Running Locally (Manual Development)
 
-11. **Tagging System:**
+#### 1. Setup Backend
+1. Navigate to the backend directory:
+   ```bash
+   cd Backend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create and configure your `.env` file as described in [Configuration](#-configuration--environment-variables).
+4. Run the development server (requires local MongoDB and Redis instances running):
+   ```bash
+   npm start
+   ```
 
-    - Enhance the blog model to support tags.
-    - Implement functionality to associate tags with blog posts.
+#### 2. Setup Frontend
+1. Navigate to the frontend directory:
+   ```bash
+   cd Frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the Vite dev server:
+   ```bash
+   npm run dev
+   ```
+4. Access the site on [http://localhost:5173](http://localhost:5173) (or the port specified by Vite).
 
-12. **Comments and Replies:**
+---
 
-    - Extend the comment model to support threaded comments (replies).
-    - Implement routes and controllers for handling comments and replies.
+## 🔌 API Documentation
 
-13. **Search Functionality:**
+All endpoints are prefixed with `/api/v1`.
 
-    - Implement a search feature for blogs based on keywords, tags, or other criteria.
+### Authentication Endpoints
 
-14. **Middleware for Request Validation:**
+| HTTP Method | Endpoint | Description | Request Body |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/v1/signup` | Register a new user | `{ "name": "...", "email": "...", "password": "..." }` |
+| `POST` | `/api/v1/login` | Login and retrieve token | `{ "email": "...", "password": "..." }` |
+| `GET` | `/api/v1/user/:id` | Fetch user info by user ID | *None* |
 
-    - Add middleware for validating incoming requests to ensure they meet the expected format and data.
+### Blog Endpoints
 
-15. **Caching Strategies:**
+| HTTP Method | Endpoint | Description | Request Body |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/v1/blog` | Create a new blog post (Authenticated) | `{ "title": "...", "content": "...", "image": "...", "tag": "..." }` |
+| `GET` | `/api/v1/blogs` | Get all blog posts | *None* |
+| `GET` | `/api/v1/blog/:id` | Get details of a single blog post | *None* |
+| `POST` | `/api/v1/blog/paginate` | Retrieve paginated list of blog posts | `{ "page": 1, "pageSize": 10 }` |
+| `GET` | `/api/v1/blog/search/:keyword` | Search blog posts by keyword | *None* |
 
-    - Implement caching mechanisms for frequently requested data to improve performance.
+### Comment Endpoints
 
-16. **Logging and Error Handling:**
+| HTTP Method | Endpoint | Description | Request Body |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/v1/:blogId/comment` | Add a comment to a specific blog | `{ "content": "...", "userId": "..." }` |
+| `GET` | `/api/v1/:blogId/comments` | Retrieve comments for a specific blog | *None* |
 
-    - Set up logging for server activities.
-    - Implement error handling middleware to gracefully handle errors and provide meaningful responses.
+### Tag Endpoints
 
-17. **Testing:**
+| HTTP Method | Endpoint | Description | Request Body |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/v1/tags` | Create a new tag | `{ "title": "..." }` |
+| `GET` | `/api/v1/tags` | Retrieve all available tags | *None* |
 
-    - Write unit tests for models, services, and controllers.
-    - Implement integration tests for the entire API.
+---
 
-18. **Documentation:**
+## 🤝 Contributing
 
-    - Generate API documentation using tools like Swagger or API Blueprint.
-
-19. **Security Measures:**
-
-    - Implement security best practices, such as input validation, secure password storage, and protection against common web vulnerabilities (e.g., CSRF, XSS).
-
-20. **Deployment:**
-    - Choose a deployment strategy (e.g., Docker) and deploy the backend to a production environment.
-
-# Tech Stack
-
-1. **Express**: Web framework for Node.js, facilitating the development of web applications and APIs.
-2. **MongoDB**: NoSQL database for storing and retrieving data in a schema-less format.
-3. **Bcrypt**: Library for secure password hashing, enhancing user authentication and data security.
-4. **Body-parser**: Middleware for parsing incoming request bodies in JSON format.
-5. **CORS**: Middleware enabling Cross-Origin Resource Sharing in Express.js, allowing controlled access to resources from different origins.
-6. **Dotenv**: Library for loading environment variables from a `.env` file into `process.env`, aiding configuration management.
-7. **Jsonwebtoken**: Library for generating and verifying JSON Web Tokens (JWT), crucial for secure user authentication and authorization.
-8. **Mongoose**: MongoDB object modeling for Node.js, providing a higher-level, schema-based abstraction for database interactions.
-9. **Nodemon**: Development tool that monitors for changes in a Node.js application, automatically restarting the server for an efficient development workflow.
-10. **Express-validator**: Middleware for request validation in Express.js, assisting in validating and sanitizing incoming request data.
-11. **Redis**: In-memory data structure store used as a cache for frequently requested data, enhancing performance through caching mechanisms.
-
+1. Fork this repository.
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the branch (`git push origin feature/AmazingFeature`).
+5. Open a Pull Request.
